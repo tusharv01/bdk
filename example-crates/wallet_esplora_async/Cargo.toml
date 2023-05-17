@@ -10,3 +10,26 @@ bdk = { path = "../../crates/bdk" }
 bdk_esplora = { path = "../../crates/esplora", features = ["async-https"] }
 bdk_file_store = { path = "../../crates/file_store" }
 tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros"] }
+
+import asyncio
+
+async def sync_data():
+    # Perform syncing operations here
+    await asyncio.sleep(1)  # Simulating syncing operations
+    print("Data synced")
+
+async def get_balance():
+    # Perform balance retrieval operations here
+    await asyncio.sleep(2)  # Simulating balance retrieval operations
+    balance = 1000
+    print(f"Balance: {balance}")
+
+async def main():
+    # Create tasks for syncing and getting balance concurrently
+    sync_task = asyncio.create_task(sync_data())
+    balance_task = asyncio.create_task(get_balance())
+
+    # Wait for both tasks to complete
+    await asyncio.gather(sync_task, balance_task)
+
+asyncio.run(main())
